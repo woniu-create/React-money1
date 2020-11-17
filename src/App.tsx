@@ -1,8 +1,8 @@
 import React from 'react';
 import {HashRouter as Router,Switch,Route,Redirect} from "react-router-dom";
-import styled from "styled-components";
-import Nav from "components/Nav"
-import Layout from 'components/Layout'//绝对路径
+// import styled from "styled-components";
+// import Nav from "components/Nav"
+// import Layout from 'components/Layout'//绝对路径
 
 import Money from './views/Money'
 import Statics from './views/Statistics'
