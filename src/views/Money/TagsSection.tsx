@@ -32,9 +32,14 @@ const Wrapper=styled.section`
     margin-top:8px;
   }
 `
-const TagsSection:React.FC=(props)=>{
+  type Props={
+    value:string[];
+    onChange:(selected:string[])=>void
+  }
+
+  const TagsSection:React.FC<Props>=(props)=>{
   const [tags,setTags]=useState<string[]>(['衣','食','住','行']);
-  const [selectedTags,setSelectedTags]=useState<string[]>([])
+  const selectedTags=props.value
   console.log(selectedTags)
 
   const onAddTag=()=>{
@@ -48,10 +53,10 @@ const TagsSection:React.FC=(props)=>{
     const index=selectedTags.indexOf(tag);
     console.log(index)
     if(index>=0){
-      setSelectedTags(selectedTags.filter(t=>t!==tag))//如果tag已被选中，就复制所有的没有被选中的tag,作为新的selectedTag
+      props.onChange(selectedTags.filter(t=>t!==tag))//如果tag已被选中，就复制所有的没有被选中的tag,作为新的selectedTag
       console.log('被选中了'+tag)
     }else{
-      setSelectedTags([...selectedTags,tag])
+      props.onChange([...selectedTags,tag])
       console.log('没被选中'+tag)
     }
   }
