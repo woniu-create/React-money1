@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, {useState} from 'react';
+import {useTags} from 'useTags'
 
 const Wrapper=styled.section`
   background:#fff;
@@ -38,7 +39,8 @@ const Wrapper=styled.section`
   }
 
   const TagsSection:React.FC<Props>=(props)=>{
-  const [tags,setTags]=useState<string[]>(['衣','食','住','行']);
+  // const [tags,setTags]=useState<string[]>(['衣','食','住','行']);//等价下面的这句话
+  const {tags,setTags}=useTags();
   const selectedTags=props.value
   console.log(selectedTags)
 

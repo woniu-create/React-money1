@@ -8,18 +8,22 @@ import Money from './views/Money'
 import Statics from './views/Statistics'
 import Tags from './views/Tags'
 import NoMatch from './views/NoMatch'
+import {Tag} from './views/Tag'
 
 function App() {
   return (
     <Router>
         <Switch>
-          <Route path="/tags">
+          <Route exact path="/tags">
             <Tags />
           </Route>
-          <Route path="/money">
+          <Route exact path="/tags/:tag">
+            <Tag/>
+          </Route>
+          <Route exact path="/money">
             <Money />
           </Route>
-          <Route path="/statics">
+          <Route exact path="/statics">
             <Statics/>
           </Route>
           <Redirect exact from="/" to="/money"/> 
