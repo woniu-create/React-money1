@@ -5,6 +5,9 @@ import Layout from 'components/Layout'
 import {Button} from 'components/Button'
 import Icon from 'components/Icon'
 import styled from 'styled-components';
+import {Input} from '../components/Input';
+import {Center} from 'components/Center'
+import {Space} from 'components/Space'
 
 const Topbar=styled.header`
   display:flex;
@@ -13,6 +16,11 @@ const Topbar=styled.header`
   line-height:20px;
   padding:14px;
   background:white;
+`
+const InputWrapper=styled.div`
+  background:white;
+  padding:0 16px;
+  margin-top:8px;
 `
 
 type Params={
@@ -32,15 +40,13 @@ const Tag:React.FC=()=>{
             <span>编辑标签</span>
         <Icon/>
       </Topbar>
-      <div>
-          <label>
-              <span>备注</span>
-              <input type="text" placeholder="标签名"/>
-          </label>
-      </div>
-    <div>
+      <InputWrapper>
+         <Input label="标签名" type="text" placeholder="标签名" value={tag.name}/>
+      </InputWrapper>
+    <Center>
+      <Space/>
       <Button>删除标签</Button>
-    </div>
+    </Center>
     </Layout>
     )
 }
