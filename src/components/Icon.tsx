@@ -8,13 +8,14 @@ let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireCo
 try {importAll(require.context('icons', true, /\.svg$/));} catch (error) {console.log(error);}
 
 type Props={
-    name:string//声明name的类型为 字符串
+    name?:string//声明name的类型为 字符串 ?表示name可以没有
 }
 
 const Icon=(props:Props)=>{
   return (
       <svg className="icon">
-          <use xlinkHref={'#'+props.name}/>
+          {props.name&&<use xlinkHref={'#'+props.name}/>}
+          {/* 如果props.name存在，则返回后面，否则什么也不做 */}
       </svg>
   )
 }

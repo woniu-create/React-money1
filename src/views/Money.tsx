@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React,{useState} from 'react'
 import {TagsSection} from './Money/TagsSection';
 import {CategorySection} from './Money/CategorySection';
-import {NotesSection} from './Money/NoteSection';
+import {NoteSection} from './Money/NoteSection';
 import {NumberPadSection} from './Money/NumberPadSection';
 
 const MyLayout=styled(Layout)`
@@ -14,7 +14,7 @@ type Category='-'|'+'
 
 function Money() {
   const [selected,setSelected]=useState({
-    tags:[] as number[],
+    tagIds:[] as number[],
     note:'',
     category:'-' as Category,
     amount:0
@@ -28,7 +28,7 @@ function Money() {
   }
     return (
          <MyLayout>
-           {selected.tags.join(',')}
+           {selected.tagIds.join(',')}
            <hr/>
            {selected.note}
            <hr/>
@@ -39,8 +39,8 @@ function Money() {
              ...selected,
              tags:tags
            })}/> */}
-           <TagsSection value={selected.tags} onChange={tags=>onChange({tags})}/>
-           <NotesSection value={selected.note} onChange={note=>onChange({note})}/>
+           <TagsSection value={selected.tagIds} onChange={tagIds=>onChange({tagIds})}/>
+           <NoteSection value={selected.note} onChange={note=>onChange({note})}/>
            <CategorySection value={selected.category} onChange={category=>onChange({category})}/>
            <NumberPadSection value={selected.amount} onChange={(amount)=>{
              onChange({amount})
