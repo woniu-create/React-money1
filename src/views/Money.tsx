@@ -14,7 +14,7 @@ type Category='-'|'+'
 
 function Money() {
   const [selected,setSelected]=useState({
-    tags:[] as string[],
+    tags:[] as number[],
     note:'',
     category:'-' as Category,
     amount:0

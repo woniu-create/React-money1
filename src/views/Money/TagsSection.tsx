@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState} from 'react';
+import React from 'react';
 import {useTags} from 'useTags'
 
 const Wrapper=styled.section`
@@ -34,40 +34,40 @@ const Wrapper=styled.section`
   }
 `
   type Props={
-    value:string[];
-    onChange:(selected:string[])=>void
+    value:number[];
+    onChange:(selected:number[])=>void
   }
 
   const TagsSection:React.FC<Props>=(props)=>{
   // const [tags,setTags]=useState<string[]>(['衣','食','住','行']);//等价下面的这句话
   const {tags,setTags}=useTags();
-  const selectedTags=props.value
-  console.log(selectedTags)
+  const selectedTagIds=props.value
+  // console.log(selectedTags)
 
   const onAddTag=()=>{
    const tagName=window.prompt('新标签的名称为:')
    if(tagName!==null){
-      setTags([...tags,tagName])
+      setTags([...tags,{id:Math.random(),name:tagName}])
    }
   }
   //疑惑开始
-  const onToggleTag=(tag:string)=>{
-    const index=selectedTags.indexOf(tag);
+  const onToggleTag=(tagId:number)=>{
+    const index=selectedTagIds.indexOf(tagId);
     console.log(index)
     if(index>=0){
-      props.onChange(selectedTags.filter(t=>t!==tag))//如果tag已被选中，就复制所有的没有被选中的tag,作为新的selectedTag
-      console.log('被选中了'+tag)
+      props.onChange(selectedTagIds.filter(t=>t!==tagId))//如果tag已被选中，就复制所有的没有被选中的tag,作为新的selectedTag
+      // console.log('被选中了'+tag)
     }else{
-      props.onChange([...selectedTags,tag])
-      console.log('没被选中'+tag)
+      props.onChange([...selectedTagIds,tagId])
+      // console.log('没被选中'+tag)
     }
   }
-  const X=(tag:string)=>selectedTags.indexOf(tag)>=0 ? 'selected':''
+  const X=(tagId:number)=>selectedTagIds.indexOf(tagId)>=0 ? 'selected':''
   return (
   <Wrapper>
      <ol>
        {tags.map(tag=>
-         <li key={tag} onClick={()=>{onToggleTag(tag)}} className={X(tag)}>{tag}</li>
+         <li key={tag.id} onClick={()=>{onToggleTag(tag.id)}} className={X(tag.id)}>{tag.name}</li>
     //疑惑结束
        )}
      </ol>
