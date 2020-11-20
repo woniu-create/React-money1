@@ -28,7 +28,7 @@ type Params={
 }
 const Tag:React.FC=()=>{
     // const {tags}=useTags()
-    const {findTag}=useTags()
+    const {findTag,updataTag}=useTags()
     const {id}=useParams<Params>()
 
     // const tag=tags.filter(tag=>tag.id===parseInt(id))[0]
@@ -41,7 +41,15 @@ const Tag:React.FC=()=>{
         <Icon/>
       </Topbar>
       <InputWrapper>
-         <Input label="标签名" type="text" placeholder="标签名" value={tag.name}/>
+         <Input label="标签名" type="text" placeholder="标签名"
+          value={tag.name}
+          onChange={(e)=>{
+            // tag.name=e.target.value
+            // console.log(tag.name)
+          updataTag(tag.id,{name:e.target.value}
+          )
+          }}
+          />
       </InputWrapper>
     <Center>
       <Space/>
