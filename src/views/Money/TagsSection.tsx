@@ -40,16 +40,10 @@ const Wrapper=styled.section`
 
   const TagsSection:React.FC<Props>=(props)=>{
   // const [tags,setTags]=useState<string[]>(['衣','食','住','行']);//等价下面的这句话
-  const {tags,setTags}=useTags();
+  const {tags,addTag}=useTags();
   const selectedTagIds=props.value
   // console.log(selectedTags)
 
-  const onAddTag=()=>{
-   const tagName=window.prompt('新标签的名称为:')
-   if(tagName!==null){
-      setTags([...tags,{id:Math.random(),name:tagName}])
-   }
-  }
   //疑惑开始
   const onToggleTag=(tagId:number)=>{
     const index=selectedTagIds.indexOf(tagId);
@@ -71,7 +65,7 @@ const Wrapper=styled.section`
     //疑惑结束
        )}
      </ol>
-     <button onClick={onAddTag}>新增标签</button>
+     <button onClick={addTag}>新增标签</button>
   </Wrapper>
   )
 }

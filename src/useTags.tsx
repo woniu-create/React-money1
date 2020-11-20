@@ -1,15 +1,30 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {createId} from 'lib/createId'
-import { threadId } from 'worker_threads';
+import { useUpdate } from 'hooks/useUpdate';
 
-const defaultTags=[
-    {id:createId(),name:'衣'},
-    {id:createId(),name:'食'},
-    {id:createId(),name:'住'},
-    {id:createId(),name:'行'}
-]
+// const defaultTags=[
+//     {id:createId(),name:'衣'},
+//     {id:createId(),name:'食'},
+//     {id:createId(),name:'住'},
+//     {id:createId(),name:'行'}
+// ]
 const useTags=()=>{
-    const [tags,setTags]=useState<{id:number;name:string}[]>(defaultTags)
+    const [tags,setTags]=useState<{id:number;name:string}[]>([])
+    useEffect(()=>{
+        let localTags=JSON.parse(window.localStorage.getItem('tags')||'[]')
+        if(localTags.length===0){
+         localTags=[
+                {id:createId(),name:'衣'},
+                {id:createId(),name:'食'},
+                {id:createId(),name:'住'},
+                {id:createId(),name:'行'}
+            ]
+        }
+        setTags(localTags)
+    },[]);
+    useUpdate(()=>{
+      window.localStorage.setItem('tags',JSON.stringify(tags))
+    },[tags])
     const findTag=(id:number)=>tags.filter(tag=>tag.id===id)[0];
     const findTagIndex=(id:number)=>{
         let result=-1;
@@ -33,7 +48,7 @@ const useTags=()=>{
         //   }))
 
         // //获取要修改tag的下标
-        // const index=findTagIndex(id);
+        // const inde=findTagIndex(id);
         // //深拷贝tags到tagsClone
         // const tagsClone=JSON.parse(JSON.stringify(tags));
         // // const newTags=tagsClone.splice(index,1,{id:IDBCursor,name:obj.name});
@@ -54,11 +69,17 @@ const useTags=()=>{
         // tagsClone.splice(index,1);
         // setTags(tagsClone)
     }
+    const addTag=()=>{
+        const tagName=window.prompt('新标签的名称为:')
+        if(tagName!==null&&tagName!==''){
+           setTags([...tags,{id:createId(),name:tagName}])
+        }
+       }
     return {
         // tags:tags,
         // setTags:setTags,
         // findTag:findTag,
-        tags,setTags,useTags,findTag,updataTag,findTagIndex,deleteTag
+        tags,setTags,useTags,findTag,updataTag,findTagIndex,deleteTag,addTag
     }
 }
 export {useTags}
