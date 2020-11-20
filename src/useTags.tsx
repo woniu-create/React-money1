@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {createId} from 'lib/createId'
+import { threadId } from 'worker_threads';
 
 const defaultTags=[
     {id:createId(),name:'衣'},
@@ -21,24 +22,37 @@ const useTags=()=>{
         return result;
     }
     const updataTag=(id:number,obj:{name:string})=>{
-        //获取要修改tag的下标
-        const index=findTagIndex(id);
-        //深拷贝tags到tagsClone
-        const tagsClone=JSON.parse(JSON.stringify(tags));
-        // const newTags=tagsClone.splice(index,1,{id:IDBCursor,name:obj.name});
-        // setTags(newTags)
+          setTags(tags.map(tag=>tag.id===id? {id, name:obj.name}:tag))
 
-        //把tagsClone的第index删掉,换成{id:id,name:obj.name}
-        tagsClone.splice(index,1,{id:id,name:obj.name});
-        setTags(tagsClone)
+        //   setTags(tags.map(tag=>{
+        //       if(tag.id===id){
+        //           return {id:id,name:obj.name}
+        //       }else{
+        //           return tag
+        //       }
+        //   }))
+
+        // //获取要修改tag的下标
+        // const index=findTagIndex(id);
+        // //深拷贝tags到tagsClone
+        // const tagsClone=JSON.parse(JSON.stringify(tags));
+        // // const newTags=tagsClone.splice(index,1,{id:IDBCursor,name:obj.name});
+        // // setTags(newTags)
+
+        // //把tagsClone的第index删掉,换成{id:id,name:obj.name}
+        // tagsClone.splice(index,1,{id:id,name:obj.name});
+        // setTags(tagsClone)
     }
     const deleteTag=(id:number)=>{
-        //获取要删除tag的下标
-        const index=findTagIndex(id);
-        //深拷贝tags到tagsClone
-        const tagsClone=JSON.parse(JSON.stringify(tags));  
-        tagsClone.splice(index,1);
-        setTags(tagsClone)
+        setTags(tags.filter(tag=>tag.id!==id))
+  
+
+        // //获取要删除tag的下标
+        // const index=findTagIndex(id);
+        // //深拷贝tags到tagsClone
+        // const tagsClone=JSON.parse(JSON.stringify(tags));  
+        // tagsClone.splice(index,1);
+        // setTags(tagsClone)
     }
     return {
         // tags:tags,
