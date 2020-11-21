@@ -5,8 +5,6 @@ import 'index.scss';
 
 console.log('页面刷新了')
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App />,
   document.getElementById('root')
 );
